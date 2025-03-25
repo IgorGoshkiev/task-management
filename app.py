@@ -16,14 +16,14 @@ def create_task(task: TaskCreate):
         deadline=task.deadline
     )
     tasks[new_task.id] = new_task
-    return new_task
+    return new_task.dict()  # Используем метод dict()
 
 
 @app.get("/tasks", response_model=List[TaskResponse])
 def list_tasks():
     """List all tasks sorted by deadline (nearest first)"""
-    task_list = list(tasks.values())
-    task_list.sort(key=lambda x: datetime.strptime(x.deadline, '%d-%m-%Y'))
+    task_list = [task.dict() for task in tasks.values()]  # Преобразуем в словари
+    task_list.sort(key=lambda x: datetime.strptime(x["deadline"], "%d-%m-%Y"))
     return task_list
 
 

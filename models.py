@@ -11,6 +11,15 @@ class Task:
         self.deadline = deadline
         self.created_at = datetime.now()
 
+    def dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "deadline": self.deadline,
+            "created_at": self.created_at
+        }
+
 
 # In-memory storage
 tasks: Dict[str, Task] = {}
